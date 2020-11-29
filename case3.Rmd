@@ -1,0 +1,57 @@
+---
+title: "Case 3: Poisson Regression Confidence Interval"
+output: html_document
+---
+
+
+We are interested in conducting a Poisson regression of a count outcome $y$ on two predictors $x$ and $z$. Our primary predictor is $x$ while $z$ could be thought of as an important confounding variable. Our primary interest is in the coefficient for the predictor $x$, which we call $\beta_x$. As a result, we design a system that estimates $\beta_x$ using maximum likelihood and produces an approximate 95% confidence interval for $\beta_x$.
+
+
+## System
+
+The data analytic system can be described in the following steps:
+
+1. Read the dataset in.
+2. Fit a Poisson GLM with a log link to $y$ using $x$ and $z$ as predictors
+3. Extract $\hat{\beta}_x$, the regression coefficient for $x$ from the model fit.
+4. Extract $se(\hat{\beta}_x)$, the standard error for $\hat{\beta}_x$
+5. Use a Normal approximation to compute an approximate 95% confidence interval for $\beta_x$, using $\hat{\beta}_x\pm 1.96 \times se(\hat{\beta}_x)$.
+6. Output $\hat{\beta}_x$ and the confidence interval
+
+
+
+If we assume that the dataset provided is in a file `dataset.csv` with one column labeled `y`, another labeled `x`, and another labeled `z` indicating our variables of interest, then some pseudo-R code for implementing the system would be
+
+```{r,eval=FALSE}
+dat <- read.csv("dataset.csv")
+fit <- glm(y ~ x + z, data = dat, family = poisson)
+beta_x <- coef(fit)["x"]
+se_x <- sqrt(diag(vcov(fit)))["x"]
+conf <- beta_x + 1.96 * c(-se_x, se_x)
+print(c(beta_x, conf))
+```
+
+
+## Expected Outcome
+
+Our expectation is that 
+
+1. $\hat{\beta}_x\in [0, 0.4]$;
+2. The lower limit of the confidence interval should not be less than $-0.2$;
+3. The upper limit of the confidence interval should not be more than $0.6$.
+
+
+## Anomaly
+
+We observe that $\hat{\beta}_x=0.013$ and that the confidence interval is $[-5.6, 6.8]$ when outputted to the console.
+
+## Diagnosis
+
+Write up your diagnosis of the anomaly here and summarize all of the possible root causes. Please be as detailed as possible when explaining how a given event might cause the anomaly to occur.
+
+
+## Follow Up
+
+Describe what you would do next (if anything) or what you might recommend be modified about the system in response to your diagnosis.
+
+

@@ -1,0 +1,39 @@
+# Case 2: Linear Regression Model with Missing Data
+
+
+We are interested in fitting a linear regression model with $y$ as the outcome and $x$ as the predictor. We know from experience that the process that generates the data can occasionally produce missing values in either the $y$ or $x$ variables and these are indicated by `NA` values in the dataset. Our primary interest is in $\hat{\beta}_x$, the estimated slope coefficient for $x$. 
+
+The datasets that our system will be applied to will not always be of the same size, so the sample size of the raw data will not be known in advance of applying the system. From preliminary data analysis, we estimate that the standard deviation of the errors in the model will be about 5.
+
+
+## System
+
+Assume that the dataset provided is in a file `dataset.csv` with one column labeled `y` and another labeled `x` indicating our variables of interest. The data analytic system can be described in the following steps:
+
+1. Read the dataset in.
+2. Remove any rows that contain `NA` values in either $x$ or $y$.
+3. Fit a linear model of $y$ using $x$ as a predictor.
+4. Extract $\hat{\beta}_x$, the slope coefficient for $x$.
+5. Print $\hat{\beta}_x$ to the console.
+
+
+## Expected Outcome
+
+Our expectation is that $\hat{\beta_x}\in[0, 2]$.
+
+## Anomaly
+
+$\hat{\beta}_x$ is shown to be $-3$ when printed to the console.
+
+
+## Diagnosis
+
+Write up your diagnosis of the anomaly here and summarize all of the possible root causes. Please be as detailed as possible when explaining how a given event might cause the anomaly to occur.
+
+
+
+## Follow Up
+
+Describe what you would do next (if anything) or what you might recommend be modified about the system in response to your diagnosis.
+
+

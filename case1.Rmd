@@ -1,0 +1,48 @@
+# Case 1: Sample Mean
+
+We are building a data analysis system to compute average levels of an ambient air pollutant in Baltimore. Our collaborators have designed a data collection system to that measures ambient pollution values once per hour at an outdoor monitor and writes it to a CSV file. That CSV file then is sent to us to compute the daily mean.
+
+Because the nature of the process that generates air pollution is known to produce highly skewed data, we have decided to log-transform the data first 
+
+
+## System
+
+The data analytic system can be described in the following steps:
+
+1. Read in the data on variable $X$ to obtain $x_1,\dots,x_n$.
+2. Log transform the data by creating $z_i=\log x_i$.
+2. Compute $\bar{z}=\frac{1}{n}\sum_{i=1}^n z_i$
+3. Output $\bar{z}$ to the console
+
+
+If we assume that the dataset provided is in a file `dataset.csv` with one column labeled `x` indicating our variable of interest, then some pseudo-R code for implementing the system would be
+
+```{r,eval=FALSE}
+dat <- read.csv("dataset.csv")
+z <- log(dat$x)
+zbar <- mean(z)
+print(zbar)
+```
+
+
+Assume for this example that the dataset size is always $n=24$ (one measurement for each hour of the day) and never changes.
+
+## Expected Outcome
+
+Our expectation is that the output will be a single numerical value falling in the interval $[-\infty,\infty]$.
+
+
+## Anomaly
+
+The value of $\bar{z}$ is shown to be `NaN` when printed to the console.
+
+
+## Diagnosis
+
+Write up your diagnosis of the anomaly here and summarize all of the possible root causes. Please be as detailed as possible when explaining how a given event might cause the anomaly to occur.
+
+
+
+## Follow Up
+
+Describe what you would do next (if anything) or what you might recommend be modified about the system in response to your diagnosis.
